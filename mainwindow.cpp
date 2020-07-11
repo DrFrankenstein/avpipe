@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include "aboutdialog.hpp"
 
 #include "ui_mainwindow.h"
 
@@ -12,4 +13,15 @@ MainWindow::MainWindow(QWidget* parent):
 MainWindow::~MainWindow()
 {
 	delete ui;
+}
+
+void MainWindow::on_action_Quit_triggered()
+{
+    QApplication::quit();
+}
+
+void MainWindow::on_action_About_triggered()
+{
+    AboutDialog about;
+    about.exec();
 }

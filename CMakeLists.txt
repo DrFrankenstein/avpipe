@@ -33,24 +33,28 @@ endif ()
 set(HEADERS
 	avpipe.h
 	mainwindow.hpp
+	aboutdialog.hpp
 )
 
 set(SOURCES
 	avpipe.cpp
 	mainwindow.cpp
+	aboutdialog.cpp
 )
 
 set(UIS
 	mainwindow.ui
+	aboutdialog.ui
 )
 
 set(LIBS
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
+	avformat
 )
 
-qt5_wrap_ui(${UIS})
-add_executable(avpipe ${SOURCES} ${HEADERS})
+#qt5_wrap_ui(${UIS})
+add_executable(avpipe ${SOURCES} ${HEADERS} ${UIS})
 target_link_libraries(avpipe ${LIBS})
 
 if(WIN32)

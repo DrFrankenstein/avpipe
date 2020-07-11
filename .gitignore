@@ -1,4 +1,5 @@
 out/
+*.autosave
 
 # Prerequisites
 *.d
