@@ -32,19 +32,19 @@ endif ()
 
 set(HEADERS
 	avpipe.h
-	mainwindow.hpp
-	aboutdialog.hpp
+	Gui/MainWindow.hpp
+	Gui/AboutDialog.hpp
 )
 
 set(SOURCES
 	avpipe.cpp
-	mainwindow.cpp
-	aboutdialog.cpp
+	Gui/MainWindow.cpp
+	Gui/AboutDialog.cpp
 )
 
 set(UIS
-	mainwindow.ui
-	aboutdialog.ui
+	Gui/MainWindow.ui
+	Gui/AboutDialog.ui
 )
 
 set(LIBS
@@ -53,7 +53,6 @@ set(LIBS
 	avformat
 )
 
-#qt5_wrap_ui(${UIS})
 add_executable(avpipe ${SOURCES} ${HEADERS} ${UIS})
 target_link_libraries(avpipe ${LIBS})
 

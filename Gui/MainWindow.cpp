@@ -1,5 +1,5 @@
-#include "mainwindow.hpp"
-#include "aboutdialog.hpp"
+#include "MainWindow.hpp"
+#include "AboutDialog.hpp"
 
 #include "ui_mainwindow.h"
 

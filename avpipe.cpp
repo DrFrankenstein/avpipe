@@ -6,7 +6,7 @@ extern "C"
 }
 
 #include "avpipe.h"
-#include "mainwindow.hpp"
+#include "Gui/MainWindow.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -17,5 +17,5 @@ int main(int argc, char* argv[])
 	MainWindow mainwin;
 	mainwin.show();
 
-	return app.exec();
+    return QApplication::exec();
 }
