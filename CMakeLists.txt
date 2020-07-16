@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.15)
+
+cmake_policy(SET CMP0092 NEW)  # don't use CMake's default compiler warning settings, as we're adding our own below
 
 project(avpipe
 	VERSION 0.1.0
@@ -16,19 +18,19 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
+find_package(FFMPEG)
 
-# add these to your CMake variables before building
-include_directories(${FFMPEG_INCLUDE_DIR})
-link_directories(${FFMPEG_LIB_DIR})
+include_directories(${FFMPEG_INCLUDE_DIRS})
+link_directories(${FFMPEG_LIBRARY_DIRS})
 
-if (MSVC)
+if(MSVC)
 	# level 4 warnings, no warnings in external headers
 	# /Wall provides nothing useful over /W4, and warns on really insignificant things such as the existence of padding
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /experimental:external /external:anglebrackets /external:W0 ")
-else ()
+	add_compile_options(/W4 /experimental:external /external:anglebrackets /external:W0)
+else()
 	# ALL THE WARNINGS
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic ")
-endif ()
+	add_compile_options(-Wall -Wextra -pedantic)
+endif()
 
 set(HEADERS
 	avpipe.h
