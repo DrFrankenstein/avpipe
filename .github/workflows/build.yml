@@ -1,0 +1,43 @@
+name: Build avpipe
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Windows
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        vcpkg install ffmpeg:x64-windows qt5:x64-windows
+        echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
+
+    - name Set up Linux
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt install qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+        echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
+
+    - name: Create Build Directory
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: cmake ../avpipe -DCMAKE_BUILD_TYPE=Release $CMAKE_FLAGS
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: cmake --build . -v --config Release
+
+    - uses: action/upload-artifact@v1
+      with:
+        name: avpipe-${{runner.os}}
+        path: ${{runner.workspace}}/build/avpipe
