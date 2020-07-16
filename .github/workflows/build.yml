@@ -22,6 +22,7 @@ jobs:
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
+        sudo apt update
         sudo apt install qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
         echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
 
