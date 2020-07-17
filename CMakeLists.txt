@@ -18,7 +18,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
+
 find_package(FFMPEG)
+if(NOT ${FFMPEG_FOUND})
+	# try with pkg-config
+	set(USING_PKG_CONFIG ON)
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(FFMPEG REQUIRED
+		libavformat libavcodec libavdevice libavfilter)
+endif()
 
 include_directories(${FFMPEG_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
