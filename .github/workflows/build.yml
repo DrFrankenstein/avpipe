@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +24,10 @@ jobs:
       run: |
         sudo apt update
         sudo apt install qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+
+	- name: Set up macOS
+	  if: runner.os == 'macOS'
+	  run: brew install qt ffmpeg
 
     - name: Create Build Directory
       run: cmake -E make_directory ${{runner.workspace}}/build
