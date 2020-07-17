@@ -22,6 +22,8 @@ find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
 find_package(FFMPEG)
 if(NOT ${FFMPEG_FOUND})
 	# try with pkg-config
+	# This is probably brittle as we link by library name instead of using PkgConfig::module,
+	# but it works for now.
 	set(USING_PKG_CONFIG ON)
 	find_package(PkgConfig REQUIRED)
 	pkg_check_modules(FFMPEG REQUIRED
