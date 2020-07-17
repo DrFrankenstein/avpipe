@@ -27,7 +27,9 @@ jobs:
 
     - name: Set up macOS
       if: runner.os == 'macOS'
-      run: brew install qt ffmpeg
+      run: |
+		brew install qt ffmpeg
+		echo ::set-env name=Qt5_DIR::"$(brew --prefix qt5)/lib/cmake/Qt5"
 
     - name: Create Build Directory
       run: cmake -E make_directory ${{runner.workspace}}/build
