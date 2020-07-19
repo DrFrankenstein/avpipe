@@ -9,6 +9,18 @@ project(avpipe
 	LANGUAGES CXX
 )
 
+find_package(Git)
+if(NOT ${GIT_FOUND})
+	set(PROJECT_BUILD unknown)
+else()
+	execute_process(
+		COMMAND ${GIT_EXECUTABLE} describe --always --dirty
+		WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+		OUTPUT_VARIABLE PROJECT_BUILD
+		OUTPUT_STRIP_TRAILING_WHITESPACE
+	)
+endif()
+
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
 
 set(CMAKE_CXX_STANDARD 17)
@@ -42,7 +54,10 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic)
 endif()
 
+configure_file(config.h.in ${CMAKE_SOURCE_DIR}/config.h)
+
 set(HEADERS
+	config.h
 	avpipe.h
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
