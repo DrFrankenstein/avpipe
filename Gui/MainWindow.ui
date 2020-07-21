@@ -118,6 +118,7 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_New_project"/>
+    <addaction name="action_Add_source"/>
     <addaction name="action_Quit"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -149,6 +150,14 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About avpipe...</string>
+   </property>
+  </action>
+  <action name="action_Add_source">
+   <property name="text">
+    <string>&amp;Add source...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
    </property>
   </action>
  </widget>
