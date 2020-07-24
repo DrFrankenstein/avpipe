@@ -24,6 +24,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install gcc-10 libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+        update-alternatives --set gcc /usr/bin/gcc-10
+        update-alternatives --set g++ /usr/bin/g++-10
 
     - name: Set up macOS
       if: runner.os == 'macOS'
