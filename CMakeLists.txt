@@ -23,11 +23,13 @@ endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+
+find_package(Boost REQUIRED)
 
 find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
 
@@ -36,13 +38,15 @@ if(NOT ${FFMPEG_FOUND})
 	# try with pkg-config
 	# This is probably brittle as we link by library name instead of using PkgConfig::module,
 	# but it works for now.
+	message("Trying to find FFmpeg through pkg-config instead...")
+
 	set(USING_PKG_CONFIG ON)
 	find_package(PkgConfig REQUIRED)
 	pkg_check_modules(FFMPEG REQUIRED
 		libavformat libavcodec libavdevice libavfilter)
 endif()
 
-include_directories(${FFMPEG_INCLUDE_DIRS})
+include_directories(${FFMPEG_INCLUDE_DIRS} ${BOOST_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
 if(MSVC)
@@ -59,6 +63,9 @@ configure_file(config.h.in ${CMAKE_SOURCE_DIR}/config.h)
 set(HEADERS
 	config.h
 	avpipe.h
+	libavxx/Dictionary.hpp
+	libavxx/Error.hpp
+	libavxx/FormatContext.hpp
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
 )

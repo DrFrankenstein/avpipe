@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QStringListModel>
 
+#include "../libavxx/FormatContext.hpp"
+
 namespace Ui
 {
 class MainWindow;
