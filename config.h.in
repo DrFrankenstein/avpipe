@@ -1,0 +1,2 @@
+#cmakedefine PROJECT_VERSION "@PROJECT_VERSION@"
+#cmakedefine PROJECT_BUILD "@PROJECT_BUILD@"

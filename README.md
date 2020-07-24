@@ -21,6 +21,11 @@ became its own program to allow for useful features like live previewing.
 A long-term goal (or pipe dream) would be feature-parity with ffmpeg.
 
 ## Building
+You'll need:
+- GCC 10, or
+- clang 7, or
+- CL 19.26 (Visual Studio 2019 v. 16.6)
+
 Install the dev packages for Qt 5 and ffmpeg, then 
 `mkdir out && cd out && cmake .. && cmake --build .`
 

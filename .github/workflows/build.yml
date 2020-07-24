@@ -16,19 +16,19 @@ jobs:
       if: runner.os == 'Windows'
       shell: bash
       run: |
-        vcpkg install ffmpeg:x64-windows qt5:x64-windows
+        vcpkg install boost-iterator:x64-windows ffmpeg:x64-windows qt5:x64-windows
         echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
 
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
-        sudo apt update
-        sudo apt install qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+        sudo apt-get update
+        sudo apt-get install gcc-10 libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
 
     - name: Set up macOS
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config qt ffmpeg
+        brew install pkg-config boost qt ffmpeg
         echo ::set-env name=Qt5_DIR::"$(brew --prefix qt5)/lib/cmake/Qt5"
 
     - name: Create Build Directory
