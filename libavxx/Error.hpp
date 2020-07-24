@@ -15,7 +15,7 @@ class Error : public std::exception
 	    _error { errorcode }
 	{ }
 
-	virtual const char* what() const
+	virtual const char* what() const noexcept
 	{
 		return ::av_make_error_string(whatBuf, AV_ERROR_MAX_STRING_SIZE, _error);
 	}
