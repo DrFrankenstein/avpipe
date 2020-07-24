@@ -22,8 +22,8 @@ jobs:
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
-        sudo apt update
-        sudo apt install libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+        sudo apt-get update
+        sudo apt-get install gcc-10 libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
 
     - name: Set up macOS
       if: runner.os == 'macOS'
