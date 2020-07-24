@@ -24,6 +24,7 @@ endif()
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/scripts")
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -46,7 +47,7 @@ if(NOT ${FFMPEG_FOUND})
 		libavformat libavcodec libavdevice libavfilter)
 endif()
 
-include_directories(${FFMPEG_INCLUDE_DIRS} ${BOOST_INCLUDE_DIRS})
+include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
 if(MSVC)
