@@ -80,7 +80,7 @@ class Dictionary
 
 	Dictionary& operator=(const Dictionary& right)
 	{
-		return *this = { right };
+		return *this = Dictionary(right);
 	}
 
 	Dictionary& operator=(Dictionary&& right)
