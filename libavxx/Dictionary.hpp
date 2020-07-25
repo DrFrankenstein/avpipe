@@ -103,7 +103,7 @@ class Dictionary
 	}
 
 	// some FFmpeg functions mutate the dict and thus take in a **
-	operator AVDictionary** ()
+	operator AVDictionary* *()
 	{
 		return &_data;
 	}

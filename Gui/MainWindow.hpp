@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include "../libavxx/FormatContext.hpp"
+
 #include <QMainWindow>
 #include <QStringList>
 #include <QStringListModel>
-
-#include "../libavxx/FormatContext.hpp"
 
 namespace Ui
 {

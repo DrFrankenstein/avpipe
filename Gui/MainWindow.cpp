@@ -1,13 +1,13 @@
-#include <QFileDialog>
-
 #include "MainWindow.hpp"
-#include "AboutDialog.hpp"
 
+#include "AboutDialog.hpp"
 #include "ui_MainWindow.h"
 
+#include <QFileDialog>
+
 MainWindow::MainWindow(QWidget* parent):
-	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
 
@@ -37,5 +37,5 @@ void MainWindow::on_action_Add_source_triggered()
 	dialog.exec();
 
 	_sources.append(dialog.selectedFiles());
-	_sourcesModel.setStringList(_sources);	// there might be a more efficient way of doing this
+	_sourcesModel.setStringList(_sources);  // there might be a more efficient way of doing this
 }
