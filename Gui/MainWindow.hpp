@@ -3,7 +3,9 @@
 
 #include "../libavxx/FormatContext.hpp"
 
+#include <QList>
 #include <QMainWindow>
+#include <QString>
 #include <QStringList>
 #include <QStringListModel>
 
@@ -28,8 +30,11 @@ class MainWindow : public QMainWindow
 	void on_action_Add_source_triggered();
 
 	private:
+	void addSourcesByUrls(const QStringList& urls);
+
 	Ui::MainWindow* ui;
 
+	QList<AV::Format::FormatContext> _sourcesNew;
 	QStringList _sources;
 	QStringListModel _sourcesModel { _sources, this };
 };

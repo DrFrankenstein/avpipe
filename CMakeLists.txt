@@ -73,6 +73,7 @@ set(HEADERS
 
 set(SOURCES
 	avpipe.cpp
+	libavxx/Error.cpp
 	Gui/MainWindow.cpp
 	Gui/AboutDialog.cpp
 )
@@ -86,6 +87,7 @@ set(LIBS
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
+	avutil
 )
 
 add_executable(avpipe ${SOURCES} ${HEADERS} ${UIS})

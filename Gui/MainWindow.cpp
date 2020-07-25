@@ -3,7 +3,11 @@
 #include "AboutDialog.hpp"
 #include "ui_MainWindow.h"
 
+#include <QApplication>
 #include <QFileDialog>
+#include <QStringList>
+
+using AV::Format::FormatContext;
 
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
@@ -36,6 +40,14 @@ void MainWindow::on_action_Add_source_triggered()
 	dialog.setFileMode(QFileDialog::FileMode::ExistingFiles);
 	dialog.exec();
 
-	_sources.append(dialog.selectedFiles());
+	addSourcesByUrls(dialog.selectedFiles());
+}
+
+void MainWindow::addSourcesByUrls(const QStringList& urls)
+{
+	_sources.append(urls);
 	_sourcesModel.setStringList(_sources);  // there might be a more efficient way of doing this
+
+	for (const auto& url : urls)
+		_sourcesNew << FormatContext::fromUrl(url.toStdString());
 }
