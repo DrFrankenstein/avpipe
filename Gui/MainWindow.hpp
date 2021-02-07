@@ -2,12 +2,11 @@
 #define MAINWINDOW_HPP
 
 #include "../libavxx/FormatContext.hpp"
+#include "ViewModels/SourceViewModel.hpp"
 
-#include <QList>
+#include <vector>
 #include <QMainWindow>
-#include <QString>
 #include <QStringList>
-#include <QStringListModel>
 
 namespace Ui
 {
@@ -17,6 +16,8 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
+
+	using FormatContext = AV::Format::FormatContext;
 
 	public:
 	explicit MainWindow(QWidget* parent = nullptr);
@@ -30,13 +31,10 @@ class MainWindow : public QMainWindow
 	void on_action_Add_source_triggered();
 
 	private:
-	void addSourcesByUrls(const QStringList& urls);
-
 	Ui::MainWindow* ui;
 
-	QList<AV::Format::FormatContext> _sourcesNew;
-	QStringList _sources;
-	QStringListModel _sourcesModel { _sources, this };
+	std::vector<FormatContext> _sources;	// ???: should the model own this?
+	SourceViewModel _sourcesModel { _sources, this };
 };
 
 #endif  // MAINWINDOW_HPP

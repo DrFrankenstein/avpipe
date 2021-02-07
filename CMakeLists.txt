@@ -69,6 +69,7 @@ set(HEADERS
 	libavxx/FormatContext.hpp
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
+	Gui/ViewModels/SourceViewModel.hpp
 )
 
 set(SOURCES
@@ -76,6 +77,7 @@ set(SOURCES
 	libavxx/Error.cpp
 	Gui/MainWindow.cpp
 	Gui/AboutDialog.cpp
+	Gui/ViewModels/SourceViewModel.cpp
 )
 
 set(UIS

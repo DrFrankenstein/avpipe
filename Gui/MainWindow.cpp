@@ -5,9 +5,9 @@
 
 #include <QApplication>
 #include <QFileDialog>
+#include <QMainWindow>
 #include <QStringList>
-
-using AV::Format::FormatContext;
+#include <QWidget>
 
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
@@ -39,15 +39,13 @@ void MainWindow::on_action_Add_source_triggered()
 	QFileDialog dialog { this };
 	dialog.setFileMode(QFileDialog::FileMode::ExistingFiles);
 	dialog.exec();
+	auto files = dialog.selectedFiles();
 
-	addSourcesByUrls(dialog.selectedFiles());
+	for (auto& path : files)
+	{	// FIXME: what if we get a SMB path? or an actual URL?
+		path.prepend("file:");
+	}
+
+	_sourcesModel.addSourcesByUrls(files);
 }
 
-void MainWindow::addSourcesByUrls(const QStringList& urls)
-{
-	_sources.append(urls);
-	_sourcesModel.setStringList(_sources);  // there might be a more efficient way of doing this
-
-	for (const auto& url : urls)
-		_sourcesNew << FormatContext::fromUrl(url.toStdString());
-}
