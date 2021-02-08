@@ -1,3 +1,6 @@
+# Based on the pure workflow by lukka: <https://github.com/lukka/CppBuildTasks-Validation/blob/master/.github/workflows/hosted-pure-workflow.yml>
+# Released under the MIT license.
+
 name: Build avpipe
 on: [push]
 
@@ -47,7 +50,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake --build "${{ env.CMAKE_BUILD_DIR }}"
+        cmake --build "${{ env.CMAKE_BUILD_DIR }}" -v --config Release
 
 #
 #    - name: Set up Windows
