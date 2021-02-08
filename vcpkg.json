@@ -1,0 +1,14 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+	"name": "avpipe",
+	"version-string": "0.1.0",
+	"dependencies": [
+		"boost",
+		{
+			"name": "qt5",
+			"features": ["multimedia"]
+		},
+		"ffmpeg",
+		"x264"
+	]
+}
