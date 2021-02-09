@@ -45,7 +45,7 @@ jobs:
 
     # nasm is needed for ffmpeg
     # gperf is needed for fontconfig
-	# might also need: build-essential curl zip unzip tar
+    # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
