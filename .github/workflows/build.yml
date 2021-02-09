@@ -43,6 +43,7 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
+    # autoconf and automake are needed by fontconfig
     # nasm is needed for ffmpeg
     # gperf is needed for fontconfig
     # might also need: build-essential curl zip unzip tar
@@ -50,7 +51,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install nasm gperf
+        sudo apt-get install autoconf automake nasm gperf
 
     # autoconf and automake are needed by fontconfig
     # pkg-config is needed for zlib
@@ -59,6 +60,8 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         brew install autoconf automake pkg-config nasm
+        # work around <https://github.com/microsoft/vcpkg/issues/10209>
+        echo 'set(VCPKG_OSX_DEPLOYMENT_TARGET "10.15")' >> ${{ env.VCPKG_ROOT }}/triplets/x64-osx.cmake
 
     - name: Install dependencies and configure
       run: |
