@@ -43,16 +43,22 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
+    # nasm is needed for ffmpeg
+    # gperf is needed for fontconfig
+	# might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install nasm
+        sudo apt-get install nasm gperf
 
-    - name: Set up macos
+    # autoconf and automake are needed by fontconfig
+    # pkg-config is needed for zlib
+    # nasm is needed for ffmpeg
+    - name: Set up macOS
       if: runner.os == 'macOS'
       run: |
-        brew install nasm
+        brew install autoconf automake pkg-config nasm
 
     - name: Install dependencies and configure
       run: |
@@ -60,7 +66,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake --build "${{ env.CMAKE_BUILD_DIR }}" -v --config Release
+        cmake --build "${{ env.CMAKE_BUILD_DIR }}" --config Release
 
 #
 #    - name: Set up Windows
