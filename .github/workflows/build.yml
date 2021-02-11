@@ -43,15 +43,16 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
-    # autoconf and automake are needed by fontconfig
     # nasm is needed for ffmpeg
-    # gperf is needed for fontconfig
+    # autoconf, automake, autopoint, libtool, and gperf are needed for fontconfig
+	# libx11-dev, libmesa-dev, libxi-dev, and libxext-dev are needed for angle
+	# the rest is needed for qt5
     # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install autoconf automake nasm gperf
+        sudo apt-get install autoconf automake autopoint libtool nasm gperf libx11-dev libmesa-dev libxi-dev libxext-dev libxkbcommon-x11-dev libgl1-mesa-dev libglu1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-xcb-dev libxfixes-dev libxrender-dev libxcb1-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev libxcb-util-dev libxcb-xinerama0-dev libxcb-xkb-dev
 
     # autoconf and automake are needed by fontconfig
     # pkg-config is needed for zlib
