@@ -45,8 +45,8 @@ jobs:
 
     # nasm is needed for ffmpeg
     # autoconf, automake, autopoint, libtool, and gperf are needed for fontconfig
-	# libx11-dev, libmesa-dev, libxi-dev, and libxext-dev are needed for angle
-	# the rest is needed for qt5
+    # libx11-dev, libmesa-dev, libxi-dev, and libxext-dev are needed for angle
+    # the rest is needed for qt5
     # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
