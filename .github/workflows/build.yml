@@ -67,6 +67,9 @@ jobs:
     - name: Install dependencies and configure
       run: |
         cmake -B "${{ env.CMAKE_BUILD_DIR }}" -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
+        #temp stuff
+        cat ${{ env.VCPKG_ROOT }}/buildtrees/qt5-base/build-x64-linux-dbg-out.log
+        cat ${{ env.VCPKG_ROOT }}/buildtrees/qt5-base/build-x64-linux-dbg-err.log
 
     - name: Build
       run: |
