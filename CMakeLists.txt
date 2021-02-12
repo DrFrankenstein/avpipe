@@ -97,6 +97,7 @@ set(UIS
 
 set(LIBS
 	Threads::Threads
+	${CMAKE_DL_LIBS}
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
