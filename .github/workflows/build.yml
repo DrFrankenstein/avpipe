@@ -20,8 +20,8 @@ jobs:
             triplet: x64-osx
 
     env:
-      CMAKE_BUILD_DIR: ${{ github.workspace }}/build/
-      VCPKG_ROOT: "${{ github.workspace }}/3rd-party/vcpkg"
+      CMAKE_BUILD_DIR: ${{github.workspace}}/build/
+      VCPKG_ROOT: "${{github.workspace}}/3rd-party/vcpkg"
 
     steps:
     - uses: actions/checkout@v2
@@ -38,13 +38,13 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: |
-          ${{ env.CMAKE_BUILD_DIR }}/vcpkg_installed/
-          ${{ env.VCPKG_ROOT }}
-          !${{ env.VCPKG_ROOT }}/buildtrees
-          !${{ env.VCPKG_ROOT }}/packages
-          !${{ env.VCPKG_ROOT }}/downloads
+          ${{env.CMAKE_BUILD_DIR}}/vcpkg_installed/
+          ${{env.VCPKG_ROOT}}
+          !${{env.VCPKG_ROOT}}/buildtrees
+          !${{env.VCPKG_ROOT}}/packages
+          !${{env.VCPKG_ROOT}}/downloads
         key: |
-          ${{ hashFiles( 'vcpkg.json' ) }}-${{ hashFiles( '.git/modules/vcpkg/HEAD' )}}-${{ matrix.triplet }}-invalidate
+          ${{hashFiles('vcpkg.json')}}-${{hashFiles('.git/modules/vcpkg/HEAD')}}-${{matrix.triplet}}-invalidate
 
     - uses: ilammy/msvc-dev-cmd@v1
 
@@ -71,51 +71,13 @@ jobs:
 
     - name: Install dependencies and configure
       run: |
-        cmake -B "${{ env.CMAKE_BUILD_DIR }}" -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
+        cmake -B "${{env.CMAKE_BUILD_DIR}}" -DCMAKE_TOOLCHAIN_FILE="${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake"
 
     - name: Build
       run: |
-        cmake --build "${{ env.CMAKE_BUILD_DIR }}" --config Release
-
-#
-#    - name: Set up Windows
-#      if: runner.os == 'Windows'
-#      shell: bash
-#      run: |
-#        vcpkg install boost-iterator:x64-windows ffmpeg:x64-windows qt5:x64-windows
-#        echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
-#
-#    - name: Set up Linux
-#      if: runner.os == 'Linux'
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get install g++-10 libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
-#        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
-#        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
-#        sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-10 100
-#        sudo update-alternatives --set gcc /usr/bin/gcc-10
-#        sudo update-alternatives --set g++ /usr/bin/g++-10
-#        sudo update-alternatives --set cpp-bin /usr/bin/cpp-10
-#
-#    - name: Set up macOS
-#      if: runner.os == 'macOS'
-#      run: |
-#        brew install pkg-config boost qt ffmpeg
-#        echo ::set-env name=Qt5_DIR::"$(brew --prefix qt5)/lib/cmake/Qt5"
-#
-#    - name: Create Build Directory
-#      run: cmake -E make_directory ${{runner.workspace}}/build
-#
-#    - name: Configure
-#      shell: bash
-#      working-directory: ${{runner.workspace}}/build
-#      run: cmake ../avpipe -DCMAKE_BUILD_TYPE=Release $CMAKE_FLAGS
-#
-#    - name: Build
-#      working-directory: ${{runner.workspace}}/build
-#      run: cmake --build . -v --config Release
+        cmake --build "${{env.CMAKE_BUILD_DIR}}" --config Release
 
     - uses: actions/upload-artifact@v2
       with:
         name: avpipe-${{runner.os}}
-        path: ${{runner.workspace}}/build
+        path: ${{github.workspace}}/build
