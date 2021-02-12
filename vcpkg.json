@@ -3,7 +3,7 @@
 	"name": "avpipe",
 	"version-string": "0.1.0",
 	"dependencies": [
-		"boost",
+		"boost-iterator",
 		"ffmpeg",
 		"x264"
 	]

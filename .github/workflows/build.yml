@@ -48,15 +48,22 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
-    # nasm is needed for ffmpeg
+    # ffmpeg requires nasm
+    # we need g++10 for C++20
     # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install nasm 
+        sudo apt-get install nasm g++10 
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+        sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-10 100
+        sudo update-alternatives --set gcc /usr/bin/gcc-10
+        sudo update-alternatives --set g++ /usr/bin/g++-10
+        sudo update-alternatives --set cpp-bin /usr/bin/cpp-10
 
-    # nasm is needed for ffmpeg
+    # ffmpeg requires nasm
     - name: Set up macOS
       if: runner.os == 'macOS'
       run: |
