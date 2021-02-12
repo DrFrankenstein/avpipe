@@ -32,6 +32,9 @@ It'll download and build the rest of the dependencies, then build the project, w
 the resulting binary in the `out` directory. The project should also work in
 Visual Studio 2019 (this is what I use) and other IDEs.
 
+You can also take a look at `.github/workflows/build.yml`. This is the build script
+that runs on every push.
+
 We don't pull Qt on our own because it takes too much time and disk space to build.
 (We tried, it just broke our CI half the time.)
 
