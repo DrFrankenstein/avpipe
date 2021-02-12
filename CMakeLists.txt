@@ -47,6 +47,14 @@ if(NOT ${FFMPEG_FOUND})
 		libavformat libavcodec libavdevice libavfilter)
 endif()
 
+# deps for macOS
+find_library(AUDIO_TOOLBOX AudioToolbox)
+find_library(CORE_FOUNDATION CoreFoundation)
+find_library(CORE_MEDIA CoreMedia)
+find_library(CORE_VIDEO CoreVideo)
+find_library(VIDEO_TOOLBOX VideoToolbox)
+find_library(SECURITY Security)
+
 include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
@@ -89,8 +97,23 @@ set(LIBS
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
+	avcodec
 	avutil
+	swresample
+	x264
 )
+
+if(APPLE)
+	set(LIBS
+		${LIBS}
+		${AUDIO_TOOLBOX}
+		${CORE_FOUNDATION}
+		${CORE_MEDIA}
+		${CORE_VIDEO}
+		${VIDEO_TOOLBOX}
+		${SECURITY}
+	)
+endif()
 
 add_executable(avpipe ${SOURCES} ${HEADERS} ${UIS})
 target_link_libraries(avpipe ${LIBS})
