@@ -80,4 +80,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: avpipe-${{runner.os}}
-        path: ${{github.workspace}}/build
+        path: |
+            ${{github.workspace}}/build
+            !${{github.workspace}}/build/vcpkg_installed
