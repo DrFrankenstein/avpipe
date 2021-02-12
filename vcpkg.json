@@ -4,10 +4,6 @@
 	"version-string": "0.1.0",
 	"dependencies": [
 		"boost",
-		{
-			"name": "qt5",
-			"features": ["multimedia"]
-		},
 		"ffmpeg",
 		"x264"
 	]

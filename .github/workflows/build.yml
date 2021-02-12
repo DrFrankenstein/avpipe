@@ -30,6 +30,11 @@ jobs:
 
     - uses: lukka/get-cmake@latest
 
+    - uses: jurple1/install-qt-action@v2
+      with:
+        version: '5.15.0'
+        modules: 'qtmultimedia'
+
     - uses: actions/cache@v2
       with:
         path: |
@@ -44,32 +49,22 @@ jobs:
     - uses: ilammy/msvc-dev-cmd@v1
 
     # nasm is needed for ffmpeg
-    # autoconf, automake, autopoint, libtool, and gperf are needed for fontconfig
-    # libx11-dev, libmesa-dev, libxi-dev, and libxext-dev are needed for angle
-    # the rest is needed for qt5
     # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install autoconf automake autopoint libtool nasm gperf libx11-dev libxi-dev libxext-dev libxkbcommon-x11-dev libgl1-mesa-dev libglu1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-xcb-dev libxfixes-dev libxrender-dev libxcb1-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev libxcb-util-dev libxcb-xinerama0-dev libxcb-xkb-dev
+        sudo apt-get install nasm 
 
-    # autoconf and automake are needed by fontconfig
-    # pkg-config is needed for zlib
     # nasm is needed for ffmpeg
     - name: Set up macOS
       if: runner.os == 'macOS'
       run: |
-        brew install autoconf automake pkg-config nasm
-        # work around <https://github.com/microsoft/vcpkg/issues/10209>
-        echo 'set(VCPKG_OSX_DEPLOYMENT_TARGET "10.15")' >> ${{ env.VCPKG_ROOT }}/triplets/x64-osx.cmake
+        brew install nasm
 
     - name: Install dependencies and configure
       run: |
         cmake -B "${{ env.CMAKE_BUILD_DIR }}" -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
-        #temp stuff
-        cat ${{ env.VCPKG_ROOT }}/buildtrees/qt5-base/build-x64-linux-dbg-out.log
-        cat ${{ env.VCPKG_ROOT }}/buildtrees/qt5-base/build-x64-linux-dbg-err.log
 
     - name: Build
       run: |
