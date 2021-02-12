@@ -104,7 +104,7 @@ set(LIBS
 	avcodec
 	avutil
 	swresample
-	$<${WIN32}:lib>x264
+	$<$<PLATFORM_ID:WIN32>:lib>x264
 )
 
 if(APPLE)
