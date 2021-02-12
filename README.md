@@ -1,4 +1,5 @@
 # avpipe
+_"What if ffmpeg was a GUI application?"_
 _"I have no clue what I'm doing."_
 
 This project aims to become a GUI-based tool for basic editing of audio and
