@@ -1,0 +1,12 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+	"name": "avpipe",
+	"version-string": "0.1.0",
+	"dependencies": [
+		"boost-iterator",
+		{
+			"name": "ffmpeg",
+			"features": ["x264"]
+		}
+	]
+}

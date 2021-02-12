@@ -1,3 +1,6 @@
+# Based on the pure workflow by lukka: <https://github.com/lukka/CppBuildTasks-Validation/blob/master/.github/workflows/hosted-pure-workflow.yml>
+# Released under the MIT license.
+
 name: Build avpipe
 on: [push]
 
@@ -8,22 +11,51 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
+        include:
+          - os: windows-latest
+            triplet: x64-windows
+          - os: ubuntu-latest
+            triplet: x64-linux
+          - os: macos-latest
+            triplet: x64-osx
+
+    env:
+      CMAKE_BUILD_DIR: ${{github.workspace}}/build/
+      VCPKG_ROOT: "${{github.workspace}}/3rd-party/vcpkg"
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true
 
-    - name: Set up Windows
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        vcpkg install boost-iterator:x64-windows ffmpeg:x64-windows qt5:x64-windows
-        echo ::set-env name=CMAKE_FLAGS::"-DCMAKE_TOOLCHAIN_FILE=$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
+    - uses: lukka/get-cmake@latest
 
+    - uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.15.0'
+        modules: 'qtmultimedia'
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ${{env.CMAKE_BUILD_DIR}}/vcpkg_installed/
+          ${{env.VCPKG_ROOT}}
+          !${{env.VCPKG_ROOT}}/buildtrees
+          !${{env.VCPKG_ROOT}}/packages
+          !${{env.VCPKG_ROOT}}/downloads
+        key: |
+          ${{hashFiles('vcpkg.json')}}-${{hashFiles('.git/modules/vcpkg/HEAD')}}-${{matrix.triplet}}-invalidate
+
+    - uses: ilammy/msvc-dev-cmd@v1
+
+    # ffmpeg requires nasm
+    # we need g++10 for C++20
+    # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install g++-10 libboost-dev qtbase5-dev qtmultimedia5-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev
+        sudo apt-get install nasm g++-10 
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
         sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-10 100
@@ -31,25 +63,23 @@ jobs:
         sudo update-alternatives --set g++ /usr/bin/g++-10
         sudo update-alternatives --set cpp-bin /usr/bin/cpp-10
 
+    # ffmpeg requires nasm
     - name: Set up macOS
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config boost qt ffmpeg
-        echo ::set-env name=Qt5_DIR::"$(brew --prefix qt5)/lib/cmake/Qt5"
+        brew install nasm
 
-    - name: Create Build Directory
-      run: cmake -E make_directory ${{runner.workspace}}/build
-
-    - name: Configure
-      shell: bash
-      working-directory: ${{runner.workspace}}/build
-      run: cmake ../avpipe -DCMAKE_BUILD_TYPE=Release $CMAKE_FLAGS
+    - name: Install dependencies and configure
+      run: |
+        cmake -B "${{env.CMAKE_BUILD_DIR}}" -DCMAKE_TOOLCHAIN_FILE="${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake"
 
     - name: Build
-      working-directory: ${{runner.workspace}}/build
-      run: cmake --build . -v --config Release
+      run: |
+        cmake --build "${{env.CMAKE_BUILD_DIR}}" --config Release
 
     - uses: actions/upload-artifact@v2
       with:
         name: avpipe-${{runner.os}}
-        path: ${{runner.workspace}}/build
+        path: |
+            ${{github.workspace}}/build
+            !${{github.workspace}}/build/vcpkg_installed
