@@ -30,6 +30,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+find_package(Threads REQUIRED)
+
 find_package(Boost REQUIRED)
 
 find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
@@ -94,6 +96,7 @@ set(UIS
 )
 
 set(LIBS
+	Threads::Threads
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
