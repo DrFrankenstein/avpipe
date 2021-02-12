@@ -30,7 +30,7 @@ jobs:
 
     - uses: lukka/get-cmake@latest
 
-    - uses: jurple1/install-qt-action@v2
+    - uses: jurplel/install-qt-action@v2
       with:
         version: '5.15.0'
         modules: 'qtmultimedia'
