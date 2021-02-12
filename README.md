@@ -26,7 +26,13 @@ You'll need:
 - clang 7, or
 - CL 19.26 (Visual Studio 2019 v. 16.6)
 
-Install the dev packages for Qt 5 and ffmpeg, then 
-`mkdir out && cd out && cmake .. && cmake --build .`
+Install the dev packages for Qt 5, then 
+`mkdir out && cmake && cmake --build out`  
+It'll download and build the rest of the dependencies, then build the project, with
+the resulting binary in the `out` directory. The project should also work in
+Visual Studio 2019 (this is what I use) and other IDEs.
+
+We don't pull Qt on our own because it takes too much time and disk space to build.
+(We tried, it just broke our CI half the time.)
 
 This is being developed on Windows, but should also run on Linux/BSD/macOS.
