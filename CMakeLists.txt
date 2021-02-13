@@ -97,7 +97,6 @@ set(UIS
 
 set(LIBS
 	Threads::Threads
-	${CMAKE_DL_LIBS}
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
@@ -105,6 +104,7 @@ set(LIBS
 	avutil
 	swresample
 	$<$<PLATFORM_ID:Windows>:lib>x264
+	${CMAKE_DL_LIBS}
 )
 
 if(APPLE)
