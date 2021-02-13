@@ -75,7 +75,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake --build "${{env.CMAKE_BUILD_DIR}}" --config Release
+        cmake --build "${{env.CMAKE_BUILD_DIR}}" -v --config Release
 
     - uses: actions/upload-artifact@v2
       with:
