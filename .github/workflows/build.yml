@@ -48,14 +48,14 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
+    # vcpkg requires build-essential curl zip unzip tar
     # ffmpeg requires nasm
     # we need g++10 for C++20
-    # might also need: build-essential curl zip unzip tar
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install nasm g++-10 
+        sudo apt-get install build-essential curl zip unzip tar nasm g++-10 
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
         sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-10 100
@@ -75,7 +75,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake --build "${{env.CMAKE_BUILD_DIR}}" -v --config Release
+        cmake --build "${{env.CMAKE_BUILD_DIR}}" --config Release
 
     - uses: actions/upload-artifact@v2
       with:
