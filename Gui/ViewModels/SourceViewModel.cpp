@@ -1,5 +1,7 @@
 #include "SourceViewModel.hpp"
 
+#include "../../libavxx/FormatContext.hpp"
+
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QStyle>
@@ -9,7 +11,7 @@
 
 using AV::Format::FormatContext;
 using boost::numeric_cast;
-using std::back_inserter, std::begin, std::end, std::transform, std::vector;
+using std::vector;
 
 SourceViewModel::SourceViewModel(vector<FormatContext>& sources, QObject* parent):
     QAbstractItemModel { parent }, _sources { sources }
@@ -129,9 +131,6 @@ void SourceViewModel::addSourcesByUrls(const QStringList& urls)
 
 		++idx;
 	}
-
-	transform(begin(urls), end(urls), back_inserter(_sources),
-	    [](const auto& url) { return FormatContext::fromUrl(url.toStdString()); });
 
 	endInsertRows();
 }
