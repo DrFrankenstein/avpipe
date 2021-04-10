@@ -13,8 +13,7 @@
 #include <QStringList>
 #include <QWidget>
 
-using std::back_inserter;
-using nano::ranges::transform;
+using nano::back_inserter, nano::ranges::transform;
 
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
