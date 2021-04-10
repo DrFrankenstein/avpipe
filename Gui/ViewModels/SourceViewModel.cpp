@@ -1,9 +1,11 @@
 #include "SourceViewModel.hpp"
 
+#include "../../libavxx/Error.hpp"
 #include "../../libavxx/FormatContext.hpp"
 
 #include <QAbstractItemModel>
 #include <QApplication>
+#include <QMessageBox>
 #include <QStyle>
 #include <algorithm>
 #include <boost/cast.hpp>
@@ -32,7 +34,7 @@ int SourceViewModel::columnCount([[maybe_unused]] const QModelIndex& parent) con
 }
 
 bool SourceViewModel::hasChildren(const QModelIndex& parent) const
-{  // only the first-level items, aka sources, have children (streams)
+{   // only the first-level items, aka sources, have children (streams)
 	return !itemIsStream(parent);
 }
 
@@ -77,7 +79,7 @@ bool SourceViewModel::itemIsStream(const QModelIndex& index)
 	return index.internalPointer() != nullptr;
 }
 
-QVariant SourceViewModel::formatData(FormatContext& format, int role)
+QVariant SourceViewModel::formatData(FormatContext& format, int role) 
 {
 	switch (role)
 	{
@@ -124,10 +126,20 @@ void SourceViewModel::addSourcesByUrls(const QStringList& urls)
 
 	for (const auto& url : urls)
 	{
-		_sources.push_back(FormatContext::fromUrl(url.toStdString()));
-		const auto& format = _sources.back();
-		for (const auto stream : format.streams())
-			_streamParents.insert({ stream, idx });
+		try
+		{
+			_sources.push_back(FormatContext::fromUrl(url.toStdString()));
+			const auto& format = _sources.back();
+			for (const auto stream : format.streams())
+				_streamParents.insert({ stream, idx });
+		}
+		catch (const AV::Error& error)
+		{	// TODO: pass our parent widget to mbox, in part to make it appear as a sheet in macOS
+			QMessageBox mbox { QMessageBox::Critical, tr("avpipe"), tr("Cannot add source"), QMessageBox::Ok };
+			mbox.setInformativeText(error.what());
+			mbox.setDetailedText(url);
+			mbox.exec();
+		}
 
 		++idx;
 	}
