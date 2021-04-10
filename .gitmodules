@@ -1,3 +1,6 @@
 [submodule "3rd-party/vcpkg"]
 	path = 3rd-party/vcpkg
 	url = https://github.com/Microsoft/vcpkg
+[submodule "3rd-party/NanoRange"]
+	path = 3rd-party/NanoRange
+	url = https://github.com/tcbrindle/NanoRange

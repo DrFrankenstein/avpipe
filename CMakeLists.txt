@@ -57,7 +57,7 @@ find_library(CORE_VIDEO CoreVideo)
 find_library(VIDEO_TOOLBOX VideoToolbox)
 find_library(SECURITY Security)
 
-include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} 3rd-party/NanoRange/include)
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
 if(MSVC)
