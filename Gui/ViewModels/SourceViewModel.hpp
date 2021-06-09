@@ -5,6 +5,7 @@
 #include <QAbstractItemModel>
 #include <QList>
 #include <QVariant>
+#include <QWidget>
 #include <unordered_map>
 #include <vector>
 
@@ -25,7 +26,7 @@ class SourceViewModel : public QAbstractItemModel
 	Q_OBJECT
 
 	public:
-	explicit SourceViewModel(std::vector<FormatContext>& sources, QObject* parent = nullptr);
+	explicit SourceViewModel(std::vector<FormatContext>& sources, QWidget* parent = nullptr);
 
 	virtual int rowCount(const QModelIndex& parent = {}) const override;
 	virtual int columnCount(const QModelIndex& parent = {}) const override;
@@ -46,4 +47,6 @@ class SourceViewModel : public QAbstractItemModel
 
 	std::vector<FormatContext>& _sources;
 	std::unordered_map<AVStream*, int> _streamParents;
+
+	QWidget* _parent;
 };

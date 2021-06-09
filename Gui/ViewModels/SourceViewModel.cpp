@@ -15,8 +15,8 @@ using AV::Format::FormatContext;
 using boost::numeric_cast;
 using std::vector;
 
-SourceViewModel::SourceViewModel(vector<FormatContext>& sources, QObject* parent):
-    QAbstractItemModel { parent }, _sources { sources }
+SourceViewModel::SourceViewModel(vector<FormatContext>& sources, QWidget* parent):
+    QAbstractItemModel { parent }, _sources { sources }, _parent { parent }
 {
 }
 
@@ -134,8 +134,11 @@ void SourceViewModel::addSourcesByUrls(const QStringList& urls)
 				_streamParents.insert({ stream, idx });
 		}
 		catch (const AV::Error& error)
-		{	// TODO: pass our parent widget to mbox, in part to make it appear as a sheet in macOS
-			QMessageBox mbox { QMessageBox::Critical, tr("avpipe"), tr("Cannot add source"), QMessageBox::Ok };
+		{
+			// HACK: An ItemModel probably shouldn't display dialogs on its own, but
+			// unless we pass back the list of URLs we couldn't open in a rethrown exception,
+			// we're stuck doing it in here.
+			QMessageBox mbox { QMessageBox::Critical, tr("avpipe"), tr("Cannot add source"), QMessageBox::Ok, _parent };
 			mbox.setInformativeText(error.what());
 			mbox.setDetailedText(url);
 			mbox.exec();
