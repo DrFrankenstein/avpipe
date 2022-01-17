@@ -26,6 +26,7 @@ class MainWindow : public QMainWindow
 	private slots:
 	void on_action_Quit_triggered();
 	void on_action_About_triggered();
+	void on_action_Formats_and_Codecs_triggered();
 	void on_action_Add_source_triggered();
     void on_treeViewSources_customContextMenuRequested(const QPoint &pos);
 

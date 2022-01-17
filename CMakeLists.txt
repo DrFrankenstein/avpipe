@@ -57,7 +57,7 @@ find_library(CORE_VIDEO CoreVideo)
 find_library(VIDEO_TOOLBOX VideoToolbox)
 find_library(SECURITY Security)
 
-include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} 3rd-party/NanoRange/include)
+include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
 if(MSVC)
@@ -79,6 +79,7 @@ set(HEADERS
 	libavxx/FormatContext.hpp
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
+	Gui/AvInfoDialog.hpp
 	Gui/PropSheets/SourcePropSheet.hpp
 	Gui/ViewModels/SourceViewModel.hpp
 	Gui/Utils/Formatting.hpp
@@ -89,6 +90,7 @@ set(SOURCES
 	libavxx/Error.cpp
 	Gui/MainWindow.cpp
 	Gui/AboutDialog.cpp
+	Gui/AvInfoDialog.cpp
 	Gui/PropSheets/SourcePropSheet.cpp
 	Gui/ViewModels/SourceViewModel.cpp
 	Gui/Utils/Formatting.cpp
@@ -97,6 +99,7 @@ set(SOURCES
 set(UIS
 	Gui/MainWindow.ui
 	Gui/AboutDialog.ui
+	Gui/AvInfoDialog.ui
 	Gui/PropSheets/SourcePropSheet.ui
 )
 

@@ -1,6 +1,7 @@
 #include "MainWindow.hpp"
 
 #include "AboutDialog.hpp"
+#include "AvInfoDialog.hpp"
 #include "PropSheets/SourcePropSheet.hpp"
 #include "ui_MainWindow.h"
 
@@ -40,6 +41,12 @@ void MainWindow::on_action_About_triggered()
 {
 	AboutDialog about;
 	about.exec();
+}
+
+void MainWindow::on_action_Formats_and_Codecs_triggered()
+{
+	AvInfoDialog dialog;
+	dialog.exec();
 }
 
 void MainWindow::on_action_Add_source_triggered()
