@@ -5,8 +5,7 @@
 #include "ui_MainWindow.h"
 
 #include <iterator>
-
-#include <nanorange.hpp>
+#include <ranges>
 
 #include <QApplication>
 #include <QDebug>
@@ -16,7 +15,7 @@
 #include <QStringList>
 #include <QWidget>
 
-using nano::back_inserter, nano::ranges::transform;
+using std::back_inserter, std::ranges::transform;
 
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
