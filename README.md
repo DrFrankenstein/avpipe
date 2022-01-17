@@ -23,7 +23,7 @@ A long-term goal (or pipe dream) would be feature-parity with ffmpeg.
 
 ## Building
 You'll need:
-- GCC 11, or
+- GCC 12 (currently under development), or
 - clang 7, or
 - CL 19.28 (Visual Studio 2019 v. 16.9)
 
