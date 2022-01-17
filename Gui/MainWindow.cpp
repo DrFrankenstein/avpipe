@@ -1,6 +1,7 @@
 #include "MainWindow.hpp"
 
 #include "AboutDialog.hpp"
+#include "PropSheets/SourcePropSheet.hpp"
 #include "ui_MainWindow.h"
 
 #include <iterator>
@@ -8,8 +9,10 @@
 #include <nanorange.hpp>
 
 #include <QApplication>
+#include <QDebug>
 #include <QFileDialog>
 #include <QMainWindow>
+#include <QMenu>
 #include <QStringList>
 #include <QWidget>
 
@@ -56,3 +59,25 @@ void MainWindow::on_action_Add_source_triggered()
 	_sourcesModel.addSourcesByUrls(urls);
 }
 
+
+void MainWindow::on_treeViewSources_customContextMenuRequested(const QPoint &pos)
+{
+    const auto index = ui->treeViewSources->indexAt(pos);
+    if (!index.isValid())
+        return;
+
+    QMenu contextMenu;
+	const auto propsAction = contextMenu.addAction(tr("&Properties..."));
+	const auto selected = contextMenu.exec(ui->treeViewSources->viewport()->mapToGlobal(pos));
+
+	if (selected == propsAction)
+	{
+		if (SourceViewModel::itemIsStream(index))
+			qDebug() << "NYI stream properties";
+		else
+		{
+			SourcePropSheet sourceprops { _sourcesModel.formatFromIndex(index), this };
+			sourceprops.exec();
+		}
+	}
+}

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SourcePropSheet</class>
+ <widget class="QDialog" name="SourcePropSheet">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>454</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Properties of Source</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>410</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Close</set>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <property name="tabPosition">
+    <enum>QTabWidget::North</enum>
+   </property>
+   <property name="tabShape">
+    <enum>QTabWidget::Rounded</enum>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <attribute name="title">
+     <string>General</string>
+    </attribute>
+    <attribute name="whatsThis">
+     <string>General information for this source, such as its URL, duration, bit rate, and metadata.</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>361</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Metadata</string>
+     </property>
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>21</y>
+        <width>351</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;p&gt;Metadata for this source.&lt;/p&gt;
+&lt;p&gt;These informations are extra fields provided by the file format handler, and/or information stored in the file. The exact nature of this metadata depends on the source.&lt;/p&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="formLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>361</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Format:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="formatNameLabel">
+        <property name="whatsThis">
+         <string>&lt;p&gt;Stream format of the source, as detected by avpipe or specified upon opening.&lt;/p&gt;&lt;p&gt;If format detection was ambiguous, the confidence level is also shown.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Seekable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="seekableLabel">
+        <property name="whatsThis">
+         <string>&lt;p&gt;Indicates whether or not the source is seekable&lt;/p&gt;&lt;p&gt;A seekable source (such as a pre-recorded video file) can be rewound or fast-forwarded; an unseekable source (such as a live stream) cannot.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Start time:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="startTimeLabel">
+        <property name="whatsThis">
+         <string>The time at which the source begins, in hours:minutes:seconds, if available. If not, it usually begins at 00:00:00.</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Duration:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="durationLabel">
+        <property name="whatsThis">
+         <string>&lt;p&gt;The duration of the source, in hours:minutes:seconds.&lt;/p&gt;&lt;p&gt;The duration may be estimated from the source's bitrate; if that is the case, it will be shown here.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Bit rate:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="bitrateLabel">
+        <property name="whatsThis">
+         <string>The total bit rate of the source, including all of its streams, if available.</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Packet size:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="pktsizeLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>Max delay:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="maxdelayLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="urlLabel">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>10</y>
+       <width>351</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="whatsThis">
+      <string>URL of the source.</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Streams</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Programs</string>
+    </attribute>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SourcePropSheet</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SourcePropSheet</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

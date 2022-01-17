@@ -59,6 +59,11 @@ class FormatContext
 		return _data;
 	}
 
+	const AVFormatContext* data() const
+	{
+		return _data;
+	}
+
 	operator AVFormatContext*()
 	{
 		return data();

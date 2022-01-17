@@ -36,14 +36,13 @@ class SourceViewModel : public QAbstractItemModel
 	virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
 	void addSourcesByUrls(const QStringList& urls);
-
-	private:
-	static bool itemIsStream(const QModelIndex& index);
-	static QVariant formatData(FormatContext& format, int role);
-	static QVariant streamData(const AVStream& stream, int role);
-
+    static bool itemIsStream(const QModelIndex& index);
 	FormatContext& formatFromIndex(const QModelIndex& index) const;
 	AVStream& streamFromIndex(const QModelIndex& index) const;
+	
+	private:
+	static QVariant formatData(FormatContext& format, int role);
+	static QVariant streamData(const AVStream& stream, int role);
 
 	std::vector<FormatContext>& _sources;
 	std::unordered_map<AVStream*, int> _streamParents;

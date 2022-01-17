@@ -79,7 +79,9 @@ set(HEADERS
 	libavxx/FormatContext.hpp
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
+	Gui/PropSheets/SourcePropSheet.hpp
 	Gui/ViewModels/SourceViewModel.hpp
+	Gui/Utils/Formatting.hpp
 )
 
 set(SOURCES
@@ -87,12 +89,15 @@ set(SOURCES
 	libavxx/Error.cpp
 	Gui/MainWindow.cpp
 	Gui/AboutDialog.cpp
+	Gui/PropSheets/SourcePropSheet.cpp
 	Gui/ViewModels/SourceViewModel.cpp
+	Gui/Utils/Formatting.cpp
 )
 
 set(UIS
 	Gui/MainWindow.ui
 	Gui/AboutDialog.ui
+	Gui/PropSheets/SourcePropSheet.ui
 )
 
 set(LIBS

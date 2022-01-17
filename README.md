@@ -23,9 +23,9 @@ A long-term goal (or pipe dream) would be feature-parity with ffmpeg.
 
 ## Building
 You'll need:
-- GCC 10, or
+- GCC 11, or
 - clang 7, or
-- CL 19.26 (Visual Studio 2019 v. 16.6)
+- CL 19.28 (Visual Studio 2019 v. 16.9)
 
 Install the dev packages for Qt 5, then 
 `mkdir out && cmake && cmake --build out`  

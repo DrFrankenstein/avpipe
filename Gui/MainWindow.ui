@@ -30,7 +30,11 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QTreeView" name="treeViewSources"/>
+          <widget class="QTreeView" name="treeViewSources">
+           <property name="contextMenuPolicy">
+            <enum>Qt::CustomContextMenu</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -77,7 +81,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>138</width>
+             <width>133</width>
              <height>518</height>
             </rect>
            </property>
