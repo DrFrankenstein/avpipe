@@ -14,10 +14,10 @@ jobs:
         include:
           - os: windows-latest
             triplet: x64-windows
-          - os: ubuntu-latest
-            triplet: x64-linux
-          - os: macos-latest
-            triplet: x64-osx
+          # - os: ubuntu-latest  # reënable once gcc-12 is available
+          #   triplet: x64-linux
+          # - os: macos-latest   # reënable once clang-14 is available
+          #   triplet: x64-osx
 
     env:
       CMAKE_BUILD_DIR: ${{github.workspace}}/build/
