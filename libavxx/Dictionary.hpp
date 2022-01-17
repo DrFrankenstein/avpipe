@@ -55,7 +55,7 @@ class Dictionary
 
 	Dictionary(Initializer list)
 	{
-		for (const auto item : list)
+		for (const auto& item : list)
 			set(item.first, item.second);
 	}
 

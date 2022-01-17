@@ -30,6 +30,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+find_package(Threads REQUIRED)
+
 find_package(Boost REQUIRED)
 
 find_package(Qt5 COMPONENTS Widgets MultimediaWidgets REQUIRED)
@@ -47,7 +49,15 @@ if(NOT ${FFMPEG_FOUND})
 		libavformat libavcodec libavdevice libavfilter)
 endif()
 
-include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+# deps for macOS
+find_library(AUDIO_TOOLBOX AudioToolbox)
+find_library(CORE_FOUNDATION CoreFoundation)
+find_library(CORE_MEDIA CoreMedia)
+find_library(CORE_VIDEO CoreVideo)
+find_library(VIDEO_TOOLBOX VideoToolbox)
+find_library(SECURITY Security)
+
+include_directories(${FFMPEG_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} 3rd-party/NanoRange/include)
 link_directories(${FFMPEG_LIBRARY_DIRS})
 
 if(MSVC)
@@ -69,24 +79,50 @@ set(HEADERS
 	libavxx/FormatContext.hpp
 	Gui/MainWindow.hpp
 	Gui/AboutDialog.hpp
+	Gui/PropSheets/SourcePropSheet.hpp
+	Gui/ViewModels/SourceViewModel.hpp
+	Gui/Utils/Formatting.hpp
 )
 
 set(SOURCES
 	avpipe.cpp
+	libavxx/Error.cpp
 	Gui/MainWindow.cpp
 	Gui/AboutDialog.cpp
+	Gui/PropSheets/SourcePropSheet.cpp
+	Gui/ViewModels/SourceViewModel.cpp
+	Gui/Utils/Formatting.cpp
 )
 
 set(UIS
 	Gui/MainWindow.ui
 	Gui/AboutDialog.ui
+	Gui/PropSheets/SourcePropSheet.ui
 )
 
 set(LIBS
+	Threads::Threads
 	Qt5::Widgets
 	Qt5::MultimediaWidgets
 	avformat
+	avcodec
+	avutil
+	swresample
+	$<$<PLATFORM_ID:Windows>:lib>x264
+	${CMAKE_DL_LIBS}
 )
+
+if(APPLE)
+	set(LIBS
+		${LIBS}
+		${AUDIO_TOOLBOX}
+		${CORE_FOUNDATION}
+		${CORE_MEDIA}
+		${CORE_VIDEO}
+		${VIDEO_TOOLBOX}
+		${SECURITY}
+	)
+endif()
 
 add_executable(avpipe ${SOURCES} ${HEADERS} ${UIS})
 target_link_libraries(avpipe ${LIBS})

@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <utility>
 extern "C"
 {
 #include <libavformat/avformat.h>
@@ -38,7 +39,27 @@ class FormatContext
 			::avformat_free_context(_data);
 	}
 
+	FormatContext(const FormatContext&) = delete;
+
+	FormatContext(FormatContext&& src)
+	{
+		_data = std::exchange(src._data, nullptr);
+	}
+
+	FormatContext& operator=(const FormatContext&) = delete;
+
+	FormatContext& operator=(FormatContext&& right)
+	{
+		std::swap(_data, right._data);
+		return *this;
+	}
+
 	AVFormatContext* data()
+	{
+		return _data;
+	}
+
+	const AVFormatContext* data() const
 	{
 		return _data;
 	}
@@ -48,17 +69,17 @@ class FormatContext
 		return data();
 	}
 
-	std::span<AVStream*> streams()
+	const std::span<AVStream*> streams() const
 	{
 		return { _data->streams, _data->nb_streams };
 	}
 
-	std::span<AVChapter*> chapters()
+	const std::span<AVChapter*> chapters() const
 	{
 		return { _data->chapters, _data->nb_chapters };
 	}
 
-	std::span<AVProgram*> programs()
+	const std::span<AVProgram*> programs() const
 	{
 		return { _data->programs, _data->nb_programs };
 	}
@@ -106,7 +127,7 @@ class FormatContext
 
 	static FormatContext fromUrl(const std::string& url, AVInputFormat* fmt = nullptr, AVDictionary** options = nullptr)
 	{
-		AVFormatContext* context;
+		AVFormatContext* context {};
 		const int status = ::avformat_open_input(&context, url.c_str(), fmt, options);
 		if (status < 0)
 			throw Error { status };

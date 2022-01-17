@@ -10,14 +10,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
+        os:
+          - windows-latest
+          # - ubuntu-latest  # reënable once gcc-12 is available
+          # - macOS-latest   # reënable once clang-14 is available
         include:
           - os: windows-latest
             triplet: x64-windows
-          - os: ubuntu-latest
-            triplet: x64-linux
-          - os: macos-latest
-            triplet: x64-osx
+          # - os: ubuntu-latest  
+          #   triplet: x64-linux
+          # - os: macos-latest   
+          #   triplet: x64-osx
 
     env:
       CMAKE_BUILD_DIR: ${{github.workspace}}/build/
@@ -48,20 +51,21 @@ jobs:
 
     - uses: ilammy/msvc-dev-cmd@v1
 
+    # vcpkg requires build-essential curl zip unzip tar
     # ffmpeg requires nasm
-    # we need g++10 for C++20
-    # might also need: build-essential curl zip unzip tar
+    # we need g++12 for all the C++20 goodies we use
     - name: Set up Linux
       if: runner.os == 'Linux'
       run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt-get update
-        sudo apt-get install nasm g++-10 
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
-        sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-10 100
-        sudo update-alternatives --set gcc /usr/bin/gcc-10
-        sudo update-alternatives --set g++ /usr/bin/g++-10
-        sudo update-alternatives --set cpp-bin /usr/bin/cpp-10
+        sudo apt-get install build-essential curl zip unzip tar nasm g++-12 
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
+        sudo update-alternatives --install /usr/bin/cpp cpp-bin /usr/bin/cpp-12 100
+        sudo update-alternatives --set gcc /usr/bin/gcc-12
+        sudo update-alternatives --set g++ /usr/bin/g++-12
+        sudo update-alternatives --set cpp-bin /usr/bin/cpp-12
 
     # ffmpeg requires nasm
     - name: Set up macOS

@@ -4,6 +4,7 @@
 	"version-string": "0.1.0",
 	"dependencies": [
 		"boost-iterator",
+		"boost-numeric-conversion",
 		{
 			"name": "ffmpeg",
 			"features": ["x264"]

@@ -30,7 +30,11 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QTreeView" name="treeViewSources"/>
+          <widget class="QTreeView" name="treeViewSources">
+           <property name="contextMenuPolicy">
+            <enum>Qt::CustomContextMenu</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -44,7 +48,7 @@
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
-        <widget class="QGroupBox" name="groupBoxMonitor">
+        <widget class="QGroupBox" name="groupBoxFilters">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -52,28 +56,14 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Monitor</string>
+          <string>Filters</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QVideoWidget" name="videoMonitor" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>1</horstretch>
-              <verstretch>1</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 0, 0);</string>
-            </property>
-           </widget>
+           <widget class="QTreeView" name="treeViewFilters"/>
           </item>
          </layout>
         </widget>
-        <widget class="QTreeView" name="treeViewFilters"/>
        </widget>
       </widget>
       <widget class="QGroupBox" name="groupBoxOutput">
@@ -91,7 +81,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>138</width>
+             <width>133</width>
              <height>518</height>
             </rect>
            </property>
@@ -161,14 +151,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QVideoWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">QVideoWidget</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
