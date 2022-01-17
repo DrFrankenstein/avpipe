@@ -10,13 +10,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
+        os:
+          - windows-latest
+          # - ubuntu-latest  # reënable once gcc-12 is available
+          # - macOS-latest   # reënable once clang-14 is available
         include:
           - os: windows-latest
             triplet: x64-windows
-          # - os: ubuntu-latest  # reënable once gcc-12 is available
+          # - os: ubuntu-latest  
           #   triplet: x64-linux
-          # - os: macos-latest   # reënable once clang-14 is available
+          # - os: macos-latest   
           #   triplet: x64-osx
 
     env:
