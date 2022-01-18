@@ -115,6 +115,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="action_Formats_and_Codecs"/>
     <addaction name="action_About"/>
    </widget>
    <addaction name="menu_File"/>
@@ -148,6 +149,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="action_Formats_and_Codecs">
+   <property name="text">
+    <string>&amp;Formats and Codecs...</string>
    </property>
   </action>
  </widget>
